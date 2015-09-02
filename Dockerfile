@@ -27,7 +27,7 @@ RUN echo "export VISIBLE=now" >> /etc/profile && \
   useradd -ms /bin/bash $OS_USER && \
   echo ${OS_USER}:kvwmap | chpasswd && \
   mkdir -p $USER_DIR/.ssh && \
-  chown -R $USER_DIR/.ssh
+  chown -R $OS_USER.$OS_USER $USER_DIR/.ssh
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
