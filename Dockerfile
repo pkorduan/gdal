@@ -1,6 +1,6 @@
-FROM geodata/gdal
+FROM geodata/gdal:2.0.0
 MAINTAINER Peter Korduan <peter.korduan@gdi-service.de>
-LABEL version="0.2.0"
+LABEL version="2.0.0"
 
 ENV OS_USER="gisadmin" USER_DIR="/home/${OS_USER}" TZ="Europe/Berlin" NOTVISIBLE="in users profile"
 
