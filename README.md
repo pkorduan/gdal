@@ -1,7 +1,7 @@
 # gdal-sshd
 Dockerfile for the image pkorduan/gdal on docker hub
 
-geodata/gdal image include the binaries to convert geodata from and to a PostGIS database, but it is not possible to run a container based on that imamge from within another container. To execute gdal and ogr2ogr commands from applications in other containers we add a sshd that make it possible to connect via ssh to the running container. Currently the Dockerfile based on geodata/gdal:2.0.0 because 2.1.0 did not work correctly for german NAS import into PostGIS.
+geodata/gdal image include the binaries to convert geodata from and to a PostGIS database, but it is not possible to run a container based on that imamge from within another container. To execute gdal and ogr2ogr commands from applications in other containers we add a sshd that make it possible to connect via ssh to the running container.
 
 The gdal container will be startet as a service with 
 ```
