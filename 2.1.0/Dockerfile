@@ -2,7 +2,7 @@ FROM geometalab/gdal-debian:2.1.0
 MAINTAINER Peter Korduan <peter.korduan@gdi-service.de>
 LABEL version="2.1.0"
 
-ENV OS_USER="gisadmin" USER_DIR="/home/${OS_USER}" TZ="Europe/Berlin" NOTVISIBLE="in users profile"
+ENV OS_USER="gisadmin" USER_DIR="/home/${OS_USER}" TZ="Europe/Berlin" NOTVISIBLE="in users profile" TERM=xterm
 
 USER root
 
