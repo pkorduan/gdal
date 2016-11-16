@@ -10,7 +10,7 @@ docker run --name gdal \
   -v /var/www/data:/data \
   --link pgsql-server:pgsql \
   -P \
-  -d pkorduan/gdal:2.0.0
+  -d pkorduan/gdal:latest
 ```
 The Hostname is only to identify the container when you are inside. A local directory is mounted to the /data directory in the gdal container and the database. The precondition is that a database container would be created before, e.g. like this:
 ```
