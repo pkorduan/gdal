@@ -1,6 +1,6 @@
-FROM geodata/gdal:2.1.2
+FROM debian
 MAINTAINER Peter Korduan <peter.korduan@gdi-service.de>
-LABEL version="2.1.2"
+LABEL version="2.2.0"
 
 ENV OS_USER="gisadmin" USER_DIR="/home/${OS_USER}" TZ="Europe/Berlin" NOTVISIBLE="in users profile" TERM=xterm
 
@@ -36,6 +36,20 @@ RUN useradd -ms /bin/bash ${OS_USER} && \
     usermod -G ${OS_USER} www-data && \
     mkdir -p ${USER_DIR}/.ssh && \
     chown -R ${OS_USER}.${OS_USER} ${USER_DIR}/.ssh
+
+RUN apt-get install -y \
+    build-essential \
+    libpq-dev \
+    libxerces-c-dev \
+    subversion
+
+RUN svn checkout http://svn.osgeo.org/gdal/trunk/gdal
+WORKDIR /gdal
+RUN ./configure --with-xerces --prefix=/opt/gdal-trunk
+RUN make
+RUN make install
+RUN echo "/opt/gdal-trunk/lib" > /etc/ld.so.conf.d/gdal.conf
+RUN ldconfig
 
 WORKDIR /var/www/data
 
