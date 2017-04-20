@@ -1,7 +1,11 @@
 # gdal-sshd
 Dockerfile for the image pkorduan/gdal on docker hub
 
-geodata/gdal image include the binaries to convert geodata from and to a PostGIS database, but it is not possible to run a container based on that imamge from within another container. To execute gdal and ogr2ogr commands from applications in other containers we add a sshd that make it possible to connect via ssh to the running container.
+This image install gdal from gdal/trunkk to support the current ogr NAS driver to import german cadastral data (ALKIS) in NAS format to a PostGIS database.
+Additionally we install ruby-libxml and zip to prepare packed NAS files for the import with ogr2ogr.
+To enable a call to ogr2ogr from within other containers an sshd was setting up and the images can be run as a demon.
+
+Latest Version 2.2.1 is with debian:jessie and GDAL 2.2.0dev, released 2016/99/99
 
 The gdal container will be startet as a service with 
 ```
@@ -31,4 +35,4 @@ docker run --name web \
     -p 443:443 \
     -d pkorduan/kvwmap-server:${KVWMAP_IMAGE_VERSION}
 ```
-You can connect from within the web container via ssh to the gdal container and can execute gdal and ogr commands to load data from or to shared directory /var/www/data from or to the PostGIS database.
+you can connect from within the web container via ssh to the gdal container and can execute gdal and ogr commands to load data from or to shared directory /var/www/data from or to the PostGIS database.

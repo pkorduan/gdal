@@ -24,12 +24,7 @@ RUN apt-get update && apt-get install -y \
   subversion \
   build-essential \
   libpq-dev \
-  libxerces-c-dev \
-  ruby1.9.3 \
-  ruby1.9.3-dev \
-  libxml-ruby
-
-RUN gem install libxml-ruby
+  libxerces-c-dev
 
 WORKDIR /usr/local
 RUN svn checkout http://svn.osgeo.org/gdal/trunk/gdal
@@ -60,6 +55,12 @@ RUN apt-get purge -y \
   build-essential \
   libpq-dev \
   libxerces-c-dev
+
+RUN apt-get update && apt-get install -y \
+  ruby-libxml \
+  zip
+
+WORKDIR "/var/www/data"
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
