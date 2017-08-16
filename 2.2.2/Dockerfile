@@ -1,7 +1,7 @@
 FROM debian:jessie
 
 MAINTAINER Peter Korduan <peter.korduan@gdi-service.de>
-LABEL version="2.3.0"
+LABEL version="2.2.1"
 
 ENV OS_USER="gisadmin" USER_DIR="/home/${OS_USER}" TZ="Europe/Berlin" NOTVISIBLE="in users profile"
 
@@ -17,25 +17,28 @@ RUN sed -i \
     echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
 RUN apt-get update && apt-get install -y \
-  build-essential \
-	git \
   less \
-  libpq-dev \
-	libspatialite-dev \
-  libxerces-c-dev \
-  ntp \
   openssh-server \
-  postgresql-client
+  postgresql-client \
+  ntp \
+  subversion \
+  build-essential \
+  libpq-dev \
+  libxerces-c-dev \
+  curl \
+  libcurl4-gnutls-dev \
+  libxml2-dev \
+  libexpat1-dev
 
 WORKDIR /usr/local
-RUN git clone https://github.com/norBIT/gdal.git
+RUN svn checkout http://svn.osgeo.org/gdal/trunk/gdal
 
-WORKDIR /usr/local/gdal/gdal
+WORKDIR /usr/local/gdal
 
-RUN ./configure --with-xerces --with-curl --with-xml2 --with-spatialite --prefix=/usr/local/gdal
+RUN ./configure --with-xerces --prefix=/usr/local/gdal --with-curl --with-xml2
 RUN make
 RUN make install
-RUN echo /usr/local/gdal/gdal/lib >> /etc/ld.so.conf
+RUN echo /usr/local/gdal/lib >> /etc/ld.so.conf
 RUN ldconfig
 
 RUN mkdir /var/run/sshd
